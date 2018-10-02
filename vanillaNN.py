@@ -6,21 +6,25 @@ class VNN(object):
         self.input = input
         self.output = output
         self.hidden = hidden
+        self.weight = []
+        self.bias = []
         self.initWeights()
         self.initBias()
 
     def initWeights(self):
-        weight1 = np.random.random((input.shape[1],hidden))
-        weight2 = np.random.random((hidden,output))
+        self.weight.append(np.random.random((self.input.shape[1],self.hidden)))
+        self.weight.append(np.random.random((self.hidden,self.output)))
 
     def initBias(self):
-        bias1 = np.random.random((input[0],hidden))
-        bias2 = np.random.random((input[0],output))
+        self.bias.append(np.random.random((1,self.hidden)))
+        self.bias.append(np.random.random((1,self.output)))
 
     def helloNN(self):
         print("Input: {0}".format(self.input))
         print("Output: {0}".format(self.output))
         print("Hidden: {0}".format(self.hidden))
+        print("Weight: {0}".format(self.weight))
+        print("bias: {0}".format(self.bias))
 
     def sigmoid(z):
         return 1.0/(1 + np.exp(-z))
