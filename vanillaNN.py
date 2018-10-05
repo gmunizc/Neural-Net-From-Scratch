@@ -26,16 +26,21 @@ class VNN(object):
         print("Weight: {0}".format(self.weight))
         print("bias: {0}".format(self.bias))
 
-    def sigmoid(z):
+    def sigmoid(self,z):
         return 1.0/(1 + np.exp(-z))
 
-    def feedforward(a):
-        for w, b in self.weight, self.bias:
-            a = sigmoid(np.dot(a,weight) + b)
+    def feedforward(self, a):
+        for w, b in zip(self.weight, self.bias):
+            a = self.sigmoid(np.dot(a,w) + b)
         return a;
+
+    def evaluate(self):
+        self.eval = self.feedforward(self.input)
+        print(self.eval)
 
 inputNumber = np.array([[1, 2, 3],[9, 8, 7]])
 outputNumber = 2
 hiddenNumber = 10
 vnn = VNN(inputNumber,outputNumber, hiddenNumber)
 vnn.helloNN()
+vnn.evaluate()
