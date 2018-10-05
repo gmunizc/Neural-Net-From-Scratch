@@ -29,6 +29,11 @@ class VNN(object):
     def sigmoid(z):
         return 1.0/(1 + np.exp(-z))
 
+    def feedforward(a):
+        for w, b in self.weight, self.bias:
+            a = sigmoid(np.dot(a,weight) + b)
+        return a;
+
 inputNumber = np.array([[1, 2, 3],[9, 8, 7]])
 outputNumber = 2
 hiddenNumber = 10
