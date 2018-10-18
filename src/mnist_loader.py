@@ -39,7 +39,7 @@ def load_data():
     That's done in the wrapper function ``load_data_wrapper()``, see
     below.
     """
-    f = gzip.open('../data/mnist.pkl.gz', 'rb')
+    f = gzip.open('/home/gabriel/Documents/DeepLearning-Back_to_Basics/VanillaNN/Neural-Net-From-Scratch/data/mnist.pkl.gz', 'rb')
     training_data, validation_data, test_data = cPickle.load(f)
     f.close()
     return (training_data, validation_data, test_data)

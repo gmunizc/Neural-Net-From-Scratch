@@ -16,5 +16,5 @@ def main():
     vnn.train(trainingSet, batchSize, alpha, epochs)
 
     vnn.evaluate(trainingSet[0])
-    
+
 main()
