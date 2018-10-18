@@ -9,7 +9,7 @@ def main():
     architecture = [inputNumber, hiddenNumber, outputNumber]
     vnn = vanilla.Network(architecture, vanilla.MSECost)
 
-    training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
+    trainingSet, validation_data, test_data = mnist_loader.load_data_wrapper()
     alpha = 3.0
     epochs = 30
     batchSize = 10

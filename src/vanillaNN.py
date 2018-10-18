@@ -41,24 +41,25 @@ class Network(object):
         return a;
 
     def train(self,trainingSet,batchSize, alpha, epochs):
-        SGD(trainingSet, batchSize, alpha, epochs)
+        self.SGD(trainingSet, batchSize, alpha, epochs)
 
     def SGD(self, trainingSet, batchSize, alpha, epochs):
         for i in range(0, epochs):
             random.shuffle(trainingSet)
             miniBatches = [trainingSet[i:i+batchSize] for i in range(0,len(trainingSet),batchSize)]
             for miniBatch in miniBatches:
-                updateMiniBatch(miniBatch, alpha)
+                self.updateMiniBatch(miniBatch, alpha)
 
     def updateMiniBatch(self, miniBatch, alpha):
         for sample in miniBatch:
-            gradsB, gradsW = backpropagation(sample)
+            gradsB, gradsW = self.backpropagation(sample)
             self.bias = [b - (alpha/len(miniBatch))*gradB for b, gradB in zip(self.bias,gradsB)]
             self.weights = [w - (alpha/len(miniBatch))*gradW for w, gradW in zip(self.weights,gradsW)]
 
     def backpropagation(self, sample):
         x, y = sample
-        activations = []
+        a = x
+        activations = [a]
         zs = []
         gradsB = [np.zeros(b.shape) for b in self.bias]
         gradsW = [np.zeros(w.shape) for w in self.weights]
@@ -68,14 +69,14 @@ class Network(object):
             a = sigmoid(z)
             activations.append(a)
 
-        delta = self.cost.delta(z,a,y)*sigmoid_prime(z)
+        delta = self.cost.delta(z,a,y)
         gradsB[-1] = delta
-        gradsW[-1] = np.dot(activations[-2 ],delta)
+        gradsW[-1] = np.dot(delta,activations[-2].transpose())
 
         for l in range(2,len(self.bias)):
             delta = np.dot(self.weights[-l+1],delta) * sigmoid_prime(zs[-l-1])
             gradsB[-l] = delta
-            gradsW[-l] = np.dot(activations[-l-1],delta)
+            gradsW[-l] = np.dot(delta,activations[-l-1].transpose())
         return (gradsB,gradsW)
 
     def evaluate(self, sample):
@@ -83,7 +84,7 @@ class Network(object):
         output = self.feedforward(x)
         self.eval = max(output)
         print(self.eval)
-        self.error = (y - a)
+        self.error = (y - output)
         print(self.error)
 
     def helloNN(self):
