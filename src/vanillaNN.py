@@ -26,13 +26,13 @@ class Network(object):
 
     def initWeights(self):
         self.weights.append(np.random.random((self.hiddenLayers[0],self.inputLayer)))
-	for hL in range(1,len(self.hiddenLayers)):
-		self.weights.append(np.random.random((self.hiddenLayers[hL],self.hiddenLayers[hL-1])))
+        for hL in range(1,len(self.hiddenLayers)):
+            self.weights.append(np.random.random((self.hiddenLayers[hL],self.hiddenLayers[hL-1])))
         self.weights.append(np.random.random((self.outputLayer,self.hiddenLayers[-1])))
 
     def initBias(self):
-	for layer in self.hiddenLayers:
-	        self.bias.append(np.random.random((layer,1)))
+        for layer in self.hiddenLayers:
+            self.bias.append(np.random.random((layer,1)))
         self.bias.append(np.random.random((self.outputLayer,1)))
 
     def feedforward(self, a):
